@@ -35,6 +35,7 @@ class NoteServiceTest {
     for (int i = 1; i <= 3; i++) {
       Note noteById = noteService.getById(i);
       Assertions.assertEquals("Note " + i, noteById.getTitle());
+      Assertions.assertEquals("Content note " + i, noteById.getContent());
       Assertions.assertEquals(i, noteById.getId());
     }
   }
@@ -50,6 +51,7 @@ class NoteServiceTest {
     Note noteById = noteService.getById(4);
     Assertions.assertEquals(4, noteById.getId());
     Assertions.assertEquals("Note 4", noteById.getTitle());
+    Assertions.assertEquals("Content note 4", noteById.getContent());
   }
 
   @Test
@@ -67,16 +69,19 @@ class NoteServiceTest {
   void update() {
     Note noteById = noteService.getById(1);
     noteById.setTitle("Note 1 updated");
+    noteById.setContent("Content note 1 updated");
     noteService.update(noteById);
 
     Note noteByIdUpdated = noteService.getById(1);
     Assertions.assertEquals("Note 1 updated", noteByIdUpdated.getTitle());
+    Assertions.assertEquals("Content note 1 updated", noteByIdUpdated.getContent());
   }
 
   @Test
   void getById() {
     Note noteById = noteService.getById(1);
     Assertions.assertEquals("Note 1", noteById.getTitle());
+    Assertions.assertEquals("Content note 1", noteById.getContent());
     Assertions.assertEquals(1, noteById.getId());
   }
 }
