@@ -9,12 +9,14 @@ import ua.gaponov.todoApp.entities.Note;
 public class NoteService {
 
   private List<Note> items = new ArrayList<>();
+  private long index;
 
   public List<Note> listAll() {
     return items;
   }
 
   public Note add(Note note) {
+    note.setId(++index);
     items.add(note);
     return note;
   }
@@ -25,8 +27,7 @@ public class NoteService {
   }
 
   public void update(Note note) {
-    int index = items.indexOf(note);
-    items.set(index, note);
+    items.set(items.indexOf(note), note);
   }
 
   public Note getById(long id) {
