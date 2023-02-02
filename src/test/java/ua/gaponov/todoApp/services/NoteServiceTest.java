@@ -4,15 +4,23 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import ua.gaponov.todoApp.entities.Note;
+import ua.gaponov.todoApp.repositories.NoteRepository;
 
+@SpringBootTest
 class NoteServiceTest {
 
   NoteService noteService;
+  @Autowired
+  private NoteRepository noteRepository;
 
   @BeforeEach
   void beforeEach() {
-    noteService = new NoteService();
+
+    noteService = new NoteService(noteRepository);
+    noteRepository.deleteAll();
 
     noteService.add(createTestNote(1));
     noteService.add(createTestNote(2));

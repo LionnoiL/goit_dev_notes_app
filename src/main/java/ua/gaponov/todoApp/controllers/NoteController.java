@@ -26,7 +26,7 @@ public class NoteController {
   @GetMapping("/note/add")
   public ModelAndView getNoteAdd() {
     ModelAndView result = new ModelAndView("note/note");
-    Note note = Note.builder().build();
+    Note note = new Note();
     result.addObject("note", note);
     return result;
   }
@@ -37,7 +37,7 @@ public class NoteController {
       @RequestParam(value = "id") long id) {
     Note note = null;
     if (id == 0) {
-      note = Note.builder().title(noteTitle).content(noteContent).build();
+      note = new Note(noteTitle, noteContent);
       noteService.add(note);
     } else {
       note = noteService.getById(id);
