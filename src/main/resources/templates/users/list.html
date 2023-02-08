@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/header.html"></head>
+
+<body>
+<div class="container mt-1">
+
+  <div><h2>Користувачі</h2></div>
+
+  <div class="alert alert-primary" role="alert">
+
+    <div class="row">
+      <div class="col-md-10">
+        <a href="/users/add" class="btn btn-primary" sec:authorize="hasRole('ROLE_ADMIN')">Створити користувача</a>
+      </div>
+      <div class="col-md-2">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Управління
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/note/list" sec:authorize="hasRole('ROLE_ADMIN')">Замітки</a>
+            <a class="dropdown-item" th:href="@{/logout}">Вийти</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <table class="table table-sm">
+    <thead class="thead-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Ім'я</th>
+      <th scope="col">Роль</th>
+      <th scope="col">Активність</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user: ${users}" th:classappend="${user.getEnabled()==0} ? 'bg-secondary text-white' : 'bg-white text-dark'" >
+      <th scope="row" th:text="${user.getId()}"></th>
+      <td th:text="${user.getUserName()}"></td>
+      <td th:text="${user.getRole().getFrendlyName()}"></td>
+      <td>
+        <div th:switch="${user.getEnabled()}">
+          <p th:case="1">Активний</p>
+          <p th:case="0">Не активний</p>
+        </div>
+      </td>
+      <td>
+
+        <div class="d-flex justify-content-end">
+          <form action="/users/edit" method="get" class="mr-1" sec:authorize="hasRole('ROLE_ADMIN')">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <button type="submit" class="btn btn-warning">
+              <i class="material-icons mr-1">edit</i>
+            </button>
+          </form>
+
+          <form action="/users/delete" method="post" sec:authorize="hasRole('ROLE_ADMIN')">
+            <input type="hidden" name="id" th:value="${user.getId()}">
+            <button type="submit" class="btn btn-danger">
+              <i class="material-icons mr-1">delete</i>
+            </button>
+          </form>
+        </div>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+
+
+</div>
+
+
+</body>
+</html>

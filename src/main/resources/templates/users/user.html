@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="fragments/header.html"></head>
+
+<body>
+
+<div class="container mt-1">
+
+  <h2 th:text="${user.getId()==0} ? 'Новий користувач' : 'Редагування користувача'"></h2>
+
+  <div class="row">
+    <div class="col-12">
+      <form action="/users/edit" method="post">
+
+        <div class="form-group">
+          <label class="form-check-label" for="userName">Ім'я</label>
+          <input class="form-control" id="userName" name="userName" th:value="${user.getUserName()}" readonly
+                 onfocus="this.removeAttribute('readonly')">
+
+        </div>
+
+        <div class="form-group">
+          <label class="form-check-label" for="userRole">Роль</label>
+          <select  class="form-control" id="userRole" name="userRole">
+            <option th:selected="${'Admin'.equals(userRole)}">Admin</option>
+            <option th:selected="${'User'.equals(userRole)}">User</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Пароль</label>
+          <input type="password" class="form-control" id="password" name="password" readonly
+                 onfocus="this.removeAttribute('readonly')">
+          <small id="passwordHelp" class="form-text text-muted">Вкажіть новий пароль, якщо його потрібно змінити</small>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="enabled" name="enabled" th:checked="${user.enabled==1}">
+          <label class="form-check-label" for="enabled">Активний</label>
+        </div>
+
+        <div class="alert alert-success" role="alert">
+          <p>Користувач з ролью Admin має повні права.</p>
+          <p>Користувач з ролью User може тільки переглядати замітки.</p>
+        </div>
+
+        <input type="hidden" name="id" th:value="${user.getId()}">
+
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="submit" class="btn btn-success mr-1">Зберегти</button>
+          <a href="/users/list" class="btn btn-danger">Відмова</a>
+        </div>
+
+      </form>
+
+
+
+    </div>
+
+  </div>
+
+
+</div>
+
+</body>
+</html>

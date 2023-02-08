@@ -43,7 +43,7 @@ public class Note implements Comparable{
     }
 
     Note note = (Note) o;
-    if (note.getId() == getId() && note.getTitle().equals(getTitle()) && note.getContent().equals(getContent())){
+    if (note.getTitle().equals(getTitle()) && note.getContent().equals(getContent())){
       return 0;
     }
     return -1;
