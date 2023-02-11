@@ -17,4 +17,4 @@ Two users are automatically created:
 </table>
 
 
-A database <b>notes-db.mv.db</b> is created in the home directory 
+A database <b>notes-db.mv.db</b> is created in the home directory.
