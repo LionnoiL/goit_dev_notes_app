@@ -1,4 +1,5 @@
 # Notes application
+Demo on Digital Ocean VPS http://164.90.165.109/note/list
 
 Two users are automatically created:
 <table>
